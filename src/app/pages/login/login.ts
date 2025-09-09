@@ -3,10 +3,8 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-// ✅ Use AngularFire for Auth injection
 import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
 
-// ✅ Use Firebase SDK for account lookup & reset
 import { fetchSignInMethodsForEmail, sendPasswordResetEmail } from 'firebase/auth';
 
 
@@ -22,18 +20,16 @@ export class Login {
   password = '';
   showPassword = false;
   errorMessage = '';
-
-  // Modes
   isRegisterMode = false;
   isForgotPasswordMode = false;
 
   constructor(private router: Router, private auth: Auth) {
 
-    console.log("🔥 Active Firebase Project:", this.auth.app.options);
+    console.log("Active Firebase Project:", this.auth.app.options);
 
   }
 
-  /** 🔹 Login */
+  /** Login */
   async onLogin() {
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -41,10 +37,10 @@ export class Login {
         this.email,
         this.password
       );
-      console.log('✅ Login success:', userCredential.user);
+      console.log('Login success:', userCredential.user);
       this.router.navigate(['/flight-form']);
     } catch (error: any) {
-      console.error('❌ Login failed:', error);
+      console.error('Login failed:', error);
       this.errorMessage = error.message;
     }
   }
@@ -57,11 +53,11 @@ export class Login {
         this.email,
         this.password
       );
-      console.log('✅ Registration success:', userCredential.user);
-      alert('✅ Registration successful! Please log in.');
+      console.log('Registration success:', userCredential.user);
+      alert(' Registration successful! Please log in.');
       this.isRegisterMode = false;
     } catch (error: any) {
-      console.error('❌ Registration failed:', error);
+      console.error('Registration failed:', error);
       this.errorMessage = error.message;
     }
   }
@@ -69,7 +65,7 @@ export class Login {
   /** 🔹 Forgot Password */
   async onForgotPassword() {
   if (!this.email) {
-    this.errorMessage = '⚠️ Please enter your email first.';
+    this.errorMessage = 'Please enter your email first.';
     return;
   }
 
@@ -79,7 +75,7 @@ export class Login {
     this.errorMessage = '';
   
   } catch (error: any) {
-    console.error('❌ Forgot password error:', error);
+    console.error('Forgot password error:', error);
     this.errorMessage = error.message;
   }
 }
@@ -89,10 +85,10 @@ export class Login {
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(this.auth, provider);
-      console.log('✅ Google login success:', result.user);
+      console.log('Google login success:', result.user);
       this.router.navigate(['/flight-form']);
     } catch (error: any) {
-      console.error('❌ Google login failed:', error);
+      console.error('Google login failed:', error);
       this.errorMessage = error.message;
     }
   }

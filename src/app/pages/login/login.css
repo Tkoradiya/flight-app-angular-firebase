@@ -1,8 +1,8 @@
-/* Centered container */
+
 .login-container {
-  max-width: 420px;   /* increased width */
+  max-width: 420px;   
   width: 100%;
-  padding: 40px;      /* more spacing inside */
+  padding: 40px;     
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.92);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
@@ -140,11 +140,11 @@ button[type="submit"]:hover {
   font-size: 20px;
   vertical-align: middle;
 }
-/*Twinkal*/
+
 span.material-icons {
     vertical-align: super;
 }
-/*Twinkal*/
+
 .forgot-password {
   text-align: right;
   margin-top: -10px;
