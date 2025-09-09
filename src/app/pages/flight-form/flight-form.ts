@@ -3,17 +3,18 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Auth, signOut } from '@angular/fire/auth';
 import { NgIf } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';  
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-flight-form',
   standalone: true,
-  imports: [FormsModule, NgIf, MatDatepickerModule,MatInputModule,MatNativeDateModule],
+  imports: [FormsModule, NgIf, MatDatepickerModule, MatInputModule, MatNativeDateModule],
   templateUrl: './flight-form.html',
-  styleUrl: './flight-form.css'
+  styleUrl: './flight-form.css',
 })
 export class FlightForm implements OnInit {
   airline = '';
@@ -26,11 +27,7 @@ export class FlightForm implements OnInit {
   submittedPayload: any = null;
   dropdownOpen = false;
 
-  constructor(
-    public auth: Auth,
-    private router: Router,
-    private http: HttpClient  
-  ) {}
+  constructor(public auth: Auth, private router: Router, private http: HttpClient) {}
 
   ngOnInit() {
     this.dropdownOpen = false;
@@ -50,7 +47,7 @@ export class FlightForm implements OnInit {
     return (parts[0][0] + parts[1][0]).toUpperCase();
   }
 
-  loading = false; // 
+  loading = false; //
 
   onSubmit(form: NgForm) {
     if (!this.airline || !this.arrivalDate || !this.arrivalTime || !this.flightNumber) {
@@ -58,47 +55,38 @@ export class FlightForm implements OnInit {
       return;
     }
     const normalizedTime = this.to24Hour(this.arrivalTime);
+    console.log(normalizedTime);
     const payload = {
       airline: this.airline,
       arrivalDate: this.arrivalDate,
-      arrivalTime: this.arrivalTime,
+      arrivalTime: normalizedTime,
       flightNumber: this.flightNumber,
       numOfGuests: this.numOfGuests,
-      comments: this.comments
+      comments: this.comments,
     };
 
-    console.log("Flight Payload:", payload);
-    this.submittedPayload = payload; 
+    console.log('Flight Payload:', payload);
+    this.submittedPayload = payload;
 
     const headers = new HttpHeaders({
-      token: "WW91IG11c3QgYmUgdGhlIGN1cmlvdXMgdHlwZS4gIEJyaW5nIHRoaXMgdXAgYXQgdGhlIGludGVydmlldyBmb3IgYm9udXMgcG9pbnRzICEh",
-      candidate: "Twinkal Koradiya"
+      token: environment.apiToken,
+      candidate: environment.candidateName,
     });
-
-    this.loading = true; 
-
-    this.http.post(
-      'https://us-central1-crm-sdk.cloudfunctions.net/flightInfoChallenge',
-      payload,
-      { headers }
-    ).subscribe({
+    this.loading = true;
+    this.http.post(environment.apiUrl, payload, { headers }).subscribe({
       next: (res) => {
-        console.log("API Response:", res);
-        this.submittedPayload = { ...payload, serverResponse: res };
-
+        console.log('API Response:', res);
         alert('Flight info successfully submitted!');
-
-        // Reset form fields
-        form.resetForm(); //
-        this.numOfGuests = 1; 
+        form.resetForm();
+        this.numOfGuests = 1;
       },
       error: (err) => {
-        console.error("API Error:", err);
+        console.error('API Error:', err);
         alert('Submission failed: ' + (err.message || 'Unknown error'));
       },
       complete: () => {
-        this.loading = false; 
-      }
+        this.loading = false;
+      },
     });
   }
 
@@ -112,16 +100,24 @@ export class FlightForm implements OnInit {
   }
 
   disableTyping(event: KeyboardEvent) {
-    event.preventDefault(); 
+    event.preventDefault();
+  }
+  decreaseGuests() {
+    if (this.numOfGuests > 1) {
+      this.numOfGuests--;
+    }
   }
 
+  increaseGuests() {
+    this.numOfGuests++;
+  }
   async onLogout() {
     await signOut(this.auth);
     this.router.navigate(['/login']);
   }
 
   toggleDropdown() {
-    console.log("Toggling dropdown");
+    console.log('Toggling dropdown');
     this.dropdownOpen = !this.dropdownOpen;
   }
 }

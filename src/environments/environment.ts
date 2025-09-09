@@ -4,9 +4,13 @@ export const environment = {
     apiKey: "AIzaSyCAYinG-8nsxygrZ-gTeFeZmTAN_MFY990",
     authDomain: "flight-app-angular.firebaseapp.com",
     projectId: "flight-app-angular",
-    storageBucket: "flight-app-angular.appspot.com",   // ✅ FIXED
+    storageBucket: "flight-app-angular.appspot.com",  
     messagingSenderId: "400038303858",
     appId: "1:400038303858:web:faff280e03ceb6705c4aeb",
     measurementId: "G-3H1232ZDZ1"
-  }
+  },
+  //api config
+  apiUrl: "https://us-central1-crm-sdk.cloudfunctions.net/flightInfoChallenge",
+  apiToken: "WW91IG11c3QgYmUgdGhlIGN1cmlvdXMgdHlwZS4gIEJyaW5nIHRoaXMgdXAgYXQgdGhlIGludGVydmlldyBmb3IgYm9udXMgcG9pbnRzICEh",
+  candidateName: "Twinkal Koradiya"
 };

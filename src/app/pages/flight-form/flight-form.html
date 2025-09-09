@@ -48,7 +48,15 @@
 
       <!-- Number of Guests -->
       <label>Number of Guests</label>
-      <input type="number" [(ngModel)]="numOfGuests" name="numOfGuests" min="1"  (keydown)="disableTyping($event)" />
+     <div class="guest-input">
+  <button type="button" (click)="decreaseGuests()">−</button>
+  <input
+    type="text"
+    [value]="numOfGuests"
+    readonly
+  />
+  <button type="button" (click)="increaseGuests()">+</button>
+</div>
 
       <label>Comments (optional)</label>
       <textarea [(ngModel)]="comments" name="comments"></textarea>
