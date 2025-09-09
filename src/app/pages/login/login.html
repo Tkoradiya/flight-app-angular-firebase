@@ -7,10 +7,26 @@
     <h2 *ngIf="isForgotPasswordMode">Forgot Password</h2>
 
     <!-- Login/Register Form -->
-    <form *ngIf="!isForgotPasswordMode" (ngSubmit)="isRegisterMode ? onRegister() : onLogin()">
+    <form
+      *ngIf="!isForgotPasswordMode"
+      #authForm="ngForm"
+      (ngSubmit)="isRegisterMode ? onRegister() : onLogin()"
+      novalidate
+    >
       <!-- Email -->
       <label>Email</label>
-      <input type="email" [(ngModel)]="email" name="email" required />
+      <input
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        required
+        email
+        #emailCtrl="ngModel"
+      />
+      <div *ngIf="emailCtrl.invalid && emailCtrl.touched" class="error">
+        <span *ngIf="emailCtrl.errors?.['required']">Email is required.</span>
+        <span *ngIf="emailCtrl.errors?.['email']">Invalid email format.</span>
+      </div>
 
       <!-- Password -->
       <label>Password</label>
@@ -20,11 +36,19 @@
           [(ngModel)]="password"
           name="password"
           required
+          minlength="6"
+          #passwordCtrl="ngModel"
         />
         <span class="toggle-eye" (click)="togglePassword()">
           <span class="material-icons">
             {{ showPassword ? 'visibility' : 'visibility_off' }}
           </span>
+        </span>
+      </div>
+      <div *ngIf="passwordCtrl.invalid && passwordCtrl.touched" class="error">
+        <span *ngIf="passwordCtrl.errors?.['required']">Password is required.</span>
+        <span *ngIf="passwordCtrl.errors?.['minlength']">
+          Password must be at least 6 characters.
         </span>
       </div>
 
@@ -35,17 +59,43 @@
         </a>
       </div>
 
-      <button type="submit" class="login-btn">
+      <button
+        type="submit"
+        class="login-btn"
+        [disabled]="authForm.invalid"
+      >
         {{ isRegisterMode ? 'Register' : 'Login' }}
       </button>
     </form>
 
     <!-- Forgot Password Form -->
-    <form *ngIf="isForgotPasswordMode" (ngSubmit)="onForgotPassword()">
+    <form
+      *ngIf="isForgotPasswordMode"
+      #forgotForm="ngForm"
+      (ngSubmit)="onForgotPassword()"
+      novalidate
+    >
       <label>Email</label>
-      <input type="email" [(ngModel)]="email" name="email" required />
+      <input
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        required
+        email
+        #forgotEmailCtrl="ngModel"
+      />
+      <div *ngIf="forgotEmailCtrl.invalid && forgotEmailCtrl.touched" class="error">
+        <span *ngIf="forgotEmailCtrl.errors?.['required']">Email is required.</span>
+        <span *ngIf="forgotEmailCtrl.errors?.['email']">Invalid email format.</span>
+      </div>
 
-      <button type="submit" class="login-btn">Send Reset Link</button>
+      <button
+        type="submit"
+        class="login-btn"
+        [disabled]="forgotForm.invalid"
+      >
+        Send Reset Link
+      </button>
       <a href="javascript:void(0)" (click)="toggleForgotPasswordMode()">Back to Login</a>
     </form>
 
@@ -64,7 +114,9 @@
       </a>
     </div>
 
-    <!-- Error message -->
-    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+    <!-- Firebase Error -->
+    <div *ngIf="errorMessage" class="error">
+      {{ errorMessage }}
+    </div>
   </div>
 </div>

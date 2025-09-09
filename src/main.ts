@@ -5,6 +5,7 @@ import { routes } from './app/app.routes';
 
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideAnimations } from '@angular/platform-browser/animations'; 
 import { environment } from './environments/environment';
 
 // ✅ Import HttpClient provider
@@ -15,6 +16,7 @@ bootstrapApplication(App, {
     provideRouter(routes),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    provideHttpClient() 
+    provideHttpClient(),
+    provideAnimations() 
   ]
 }).catch(err => console.error(err));

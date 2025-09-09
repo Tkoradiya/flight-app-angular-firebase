@@ -29,3 +29,5 @@ html, body {
   align-items: center;
   padding: 60px 0;  /* adds breathing space top & bottom */
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

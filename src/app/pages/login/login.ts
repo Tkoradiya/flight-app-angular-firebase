@@ -45,7 +45,7 @@ export class Login {
     }
   }
 
-  /** 🔹 Register */
+  /**Register */
   async onRegister() {
     try {
       const userCredential = await createUserWithEmailAndPassword(
@@ -62,7 +62,7 @@ export class Login {
     }
   }
 
-  /** 🔹 Forgot Password */
+  /**Forgot Password */
   async onForgotPassword() {
   if (!this.email) {
     this.errorMessage = 'Please enter your email first.';
@@ -71,7 +71,7 @@ export class Login {
 
   try {
     await sendPasswordResetEmail(this.auth, this.email);
-    alert('📧 If this email is registered, a password reset link has been sent.');
+    alert('If this email is registered, a password reset link has been sent.');
     this.errorMessage = '';
   
   } catch (error: any) {
@@ -80,13 +80,15 @@ export class Login {
   }
 }
 
-  /** 🔹 Google Login */
+  /**Google Login */
   async onGoogleLogin() {
     try {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(this.auth, provider);
       console.log('Google login success:', result.user);
-      this.router.navigate(['/flight-form']);
+       this.router.navigate(['/flight-form']).then(() => {
+        window.location.reload(); // reload page
+      });
     } catch (error: any) {
       console.error('Google login failed:', error);
       this.errorMessage = error.message;

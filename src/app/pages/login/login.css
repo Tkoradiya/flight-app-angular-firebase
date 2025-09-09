@@ -160,3 +160,11 @@ span.material-icons {
 .forgot-password a:hover {
   text-decoration: underline;
 }
+.error {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
