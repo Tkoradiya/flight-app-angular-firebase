@@ -1,0 +1,162 @@
+/* Centered container */
+.login-container {
+  max-width: 420px;   /* increased width */
+  width: 100%;
+  padding: 40px;      /* more spacing inside */
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+.login-container h2 {
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+
+/* Labels */
+label {
+  display: block;
+  text-align: left;
+  margin: 10px 0 5px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+/* Password wrapper */
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  padding-right: 40px;
+}
+
+.toggle-eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+  font-size: 20px;
+}
+
+/* Buttons */
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button[type="submit"] {
+  background: #1877f2;
+  color: white;
+  font-weight: bold;
+}
+
+button[type="submit"]:hover {
+  background: #0f5ad3;
+}
+
+/* Divider */
+.divider {
+  margin: 15px 0;
+  font-size: 13px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+}
+
+.divider:not(:empty)::before {
+  margin-right: .75em;
+}
+
+.divider:not(:empty)::after {
+  margin-left: .75em;
+}
+
+/* Google Button */
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid #ccc;
+  font-weight: 500;
+  color: #444;
+  gap: 10px;
+}
+
+.google-btn:hover {
+  background: #f7f7f7;
+}
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 40px;
+  box-sizing: border-box;
+}
+
+.toggle-eye {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  color: #555;
+}
+
+.material-icons {
+  font-size: 20px;
+  vertical-align: middle;
+}
+/*Twinkal*/
+span.material-icons {
+    vertical-align: super;
+}
+/*Twinkal*/
+.forgot-password {
+  text-align: right;
+  margin-top: -10px;
+  margin-bottom: 15px;
+}
+
+.forgot-password a {
+  font-size: 13px;
+  color: #1877f2;
+  text-decoration: none;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}

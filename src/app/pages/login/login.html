@@ -1,0 +1,70 @@
+<div class="login-page">
+  <div class="login-container">
+    <!-- Title -->
+    <h2 *ngIf="!isForgotPasswordMode">
+      {{ isRegisterMode ? 'Register' : 'Login' }}
+    </h2>
+    <h2 *ngIf="isForgotPasswordMode">Forgot Password</h2>
+
+    <!-- Login/Register Form -->
+    <form *ngIf="!isForgotPasswordMode" (ngSubmit)="isRegisterMode ? onRegister() : onLogin()">
+      <!-- Email -->
+      <label>Email</label>
+      <input type="email" [(ngModel)]="email" name="email" required />
+
+      <!-- Password -->
+      <label>Password</label>
+      <div class="password-wrapper">
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          [(ngModel)]="password"
+          name="password"
+          required
+        />
+        <span class="toggle-eye" (click)="togglePassword()">
+          <span class="material-icons">
+            {{ showPassword ? 'visibility' : 'visibility_off' }}
+          </span>
+        </span>
+      </div>
+
+      <!-- Forgot Password -->
+      <div *ngIf="!isRegisterMode" class="forgot-password">
+        <a href="javascript:void(0)" (click)="toggleForgotPasswordMode()">
+          Forgot Password?
+        </a>
+      </div>
+
+      <button type="submit" class="login-btn">
+        {{ isRegisterMode ? 'Register' : 'Login' }}
+      </button>
+    </form>
+
+    <!-- Forgot Password Form -->
+    <form *ngIf="isForgotPasswordMode" (ngSubmit)="onForgotPassword()">
+      <label>Email</label>
+      <input type="email" [(ngModel)]="email" name="email" required />
+
+      <button type="submit" class="login-btn">Send Reset Link</button>
+      <a href="javascript:void(0)" (click)="toggleForgotPasswordMode()">Back to Login</a>
+    </form>
+
+    <div class="divider">OR</div>
+
+    <!-- Google login -->
+    <button class="google-btn" (click)="onGoogleLogin()">
+      <img src="https://img.icons8.com/color/20/000000/google-logo.png" />
+      Sign in with Google
+    </button>
+
+    <!-- Toggle login/register -->
+    <div *ngIf="!isForgotPasswordMode" class="toggle-link">
+      <a href="javascript:void(0)" (click)="toggleRegisterMode()">
+        {{ isRegisterMode ? 'Already have an account? Login' : 'New user? Register here' }}
+      </a>
+    </div>
+
+    <!-- Error message -->
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="profile-container">
+  <div class="profile-icon" (click)="toggleDropdown()">
+    {{ getUserInitials() }}
+  </div>
+  <div class="dropdown-menu" *ngIf="dropdownOpen">
+    <p class="dropdown-user">
+      {{ auth.currentUser?.displayName || auth.currentUser?.email }}
+    </p>
+    <hr />
+    <a (click)="onLogout()">Logout</a>
+  </div>
+</div>
+
+<div class="flight-form-page">
+  <div class="flight-form-container">
+    <div class="form-header">
+      <h2>Flight Information</h2>
+    </div>
+
+    <form (ngSubmit)="onSubmit()">
+      <!-- Airline -->
+      <label>
+        Airline <span class="required">*</span>
+      </label>
+      <input type="text" [(ngModel)]="airline" name="airline" required />
+
+      <!-- Arrival Date -->
+      <label>
+        Arrival Date <span class="required">*</span>
+      </label>
+      <input type="date" [(ngModel)]="arrivalDate" name="arrivalDate" required />
+
+      <!-- Arrival Time -->
+      <label>
+        Arrival Time <span class="required">*</span>
+      </label>
+      <input type="time" [(ngModel)]="arrivalTime" name="arrivalTime" required />
+
+      <!-- Flight Number -->
+      <label>
+        Flight Number <span class="required">*</span>
+      </label>
+      <input type="text" [(ngModel)]="flightNumber" name="flightNumber" required />
+
+      <!-- Number of Guests -->
+      <label>Number of Guests</label>
+      <input type="number" [(ngModel)]="numOfGuests" name="numOfGuests" min="1" />
+
+      <!-- Comments -->
+      <label>Comments (optional)</label>
+      <textarea [(ngModel)]="comments" name="comments"></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+
+   
+  </div>
+</div>

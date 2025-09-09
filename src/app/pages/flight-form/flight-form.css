@@ -1,0 +1,164 @@
+.form-container {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fafafa;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+input, textarea, button {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  background: #1976d2;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1565c0;
+}
+.flight-form-container {
+  max-width: 700px;   
+  width: 90%;        
+  padding: 50px;
+  background: rgba(255, 255, 255, 0.92); /* semi-transparent */
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.flight-form-container h2 {
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+
+label {
+  display: block;
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.required {
+  color: red;
+}
+
+input, textarea, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 15px;
+}
+
+button {
+  margin-top: 20px;
+  background: #1976d2;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #135ba1;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between; /* places Logout to the right */
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.logout-link {
+  color: #007bff; /* blue like a link */
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.logout-link:hover {
+  color: #0056b3; /* darker blue on hover */
+  text-decoration: underline;
+}
+
+
+.profile-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.profile-icon {
+  background: #007bff;
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s;
+}
+
+.profile-icon:hover {
+  background: #0056b3;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  min-width: 180px;
+}
+
+.dropdown-user {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  padding: 5px 0;
+  color: #333;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 5px 10px;
+  color: #333;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f1f1f1;
+}
