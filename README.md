@@ -70,7 +70,7 @@ It is an Angular web application deployed on **Firebase Hosting**, with authenti
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/flight-app-angular-firebase.git
+git clone https://github.com/Tkoradiya/flight-app-angular-firebase.git
 cd flight-app-angular-firebase
   
 2. Install Dependencies
