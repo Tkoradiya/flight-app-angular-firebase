@@ -19,44 +19,40 @@
 
     <form #flightForm="ngForm" (ngSubmit)="onSubmit(flightForm)">
       <!-- Airline -->
-      <label>
-        Airline <span class="required">*</span>
-      </label>
+      <label> Airline <span class="required">*</span> </label>
       <input type="text" [(ngModel)]="airline" name="airline" required />
 
       <!-- Arrival Date -->
-      <label>
-        Arrival Date <span class="required">*</span>
-      </label>
-      <input type="date" [(ngModel)]="arrivalDate" name="arrivalDate" required />
+      <label> Arrival Date <span class="required">*</span> </label>
+      <input
+        type="date"
+        [(ngModel)]="arrivalDate"
+        name="arrivalDate"
+        required
+        #arrivalDateCtrl="ngModel"
+        [class.is-invalid]="arrivalDateCtrl.invalid && arrivalDateCtrl.touched"
+        pattern="^\d{4}-\d{2}-\d{2}$"
+      />
+
+      <div class="error-text" *ngIf="arrivalDateCtrl.invalid && arrivalDateCtrl.touched">
+        Please enter a valid date (DD-MM-YYYY).
+      </div>
 
       <!-- Arrival Time -->
-       <label>Arrival Time <span class="required">*</span></label>
-        <input
-          type="time"
-          matInput
-          [(ngModel)]="arrivalTime"
-          name="arrivalTime"
-          required
-        >
+      <label>Arrival Time <span class="required">*</span></label>
+      <input type="time" matInput [(ngModel)]="arrivalTime" name="arrivalTime" required />
 
       <!-- Flight Number -->
-      <label>
-        Flight Number <span class="required">*</span>
-      </label>
+      <label> Flight Number <span class="required">*</span> </label>
       <input type="text" [(ngModel)]="flightNumber" name="flightNumber" required />
 
       <!-- Number of Guests -->
       <label>Number of Guests</label>
-     <div class="guest-input">
-  <button type="button" (click)="decreaseGuests()">−</button>
-  <input
-    type="text"
-    [value]="numOfGuests"
-    readonly
-  />
-  <button type="button" (click)="increaseGuests()">+</button>
-</div>
+      <div class="guest-input">
+        <button type="button" (click)="decreaseGuests()">−</button>
+        <input type="text" [value]="numOfGuests" readonly />
+        <button type="button" (click)="increaseGuests()">+</button>
+      </div>
 
       <label>Comments (optional)</label>
       <textarea [(ngModel)]="comments" name="comments"></textarea>

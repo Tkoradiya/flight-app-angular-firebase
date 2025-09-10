@@ -54,6 +54,18 @@ export class FlightForm implements OnInit {
       alert('Please fill out all required fields');
       return;
     }
+   
+    const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+    if (!datePattern.test(this.arrivalDate)) {
+      alert('Arrival Date must be in DD-MM-YYYY format with 4-digit year.');
+      return;
+    }
+
+    const parsedDate = new Date(this.arrivalDate);
+    if (isNaN(parsedDate.getTime())) {
+      alert('Please enter a valid calendar date.');
+      return;
+    }
     const normalizedTime = this.to24Hour(this.arrivalTime);
     console.log(normalizedTime);
     const payload = {
