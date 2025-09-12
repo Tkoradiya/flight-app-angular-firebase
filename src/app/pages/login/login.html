@@ -115,8 +115,12 @@
     </div>
 
     <!-- Firebase Error -->
-    <div *ngIf="errorMessage" class="error">
-      {{ errorMessage }}
-    </div>
+    
+      <div *ngIf="errorMessage" class="error">
+        {{ errorMessage }}
+      </div>
+      <div *ngIf="successMessage" class="success">
+        {{ successMessage }}
+      </div>
   </div>
 </div>
