@@ -1,7 +1,7 @@
 # Flight App – Angular + Firebase
 
-This project is my submission for the **Monster Coding Challenge**.  
-It is an Angular web application deployed on **Firebase Hosting**, with authentication and a protected flight form that submits data to the provided backend API.
+This project is my submission for the Monster Coding Challenge.
+It is a secure Angular web application deployed on Firebase Hosting, featuring authentication, a protected flight details form, and API integration with the provided backend.
 
 ---
 
@@ -13,19 +13,27 @@ It is an Angular web application deployed on **Firebase Hosting**, with authenti
 ## Features
 - **Authentication**
   - Email + Password login & registration
-  - Google Sign-In
-  - Forgot password (email reset link)
-  - Denies access to the form unless logged in
+  - Google Sign-In via Firebase Authentication
+  - Forgot password flow (email reset link)
+  - Protected routes:
+      - Denies access to the flight form unless logged in
+      - Prevents logged-in users from navigating back to the login page
 
 - **Flight Information Form**
   - Collects:
     - Airline 
     - Arrival Date  
-    - Arrival Time  
+    - Arrival Time  (via timepicker, normalized to HH:mm)
     - Flight Number  
     - Number of Guests  
     - Comments (optional)  
   - Required field validation
+ 
+**Form Features:**
+  - Strongly typed Reactive Forms (FormGroup<FormControl<...>>)
+  - Angular + server-side validation for robust data integrity
+  - Custom guest counter (increment/decrement buttons)
+  - User-friendly error messages and field-level validation feedback
 
 - **API Integration**
   - Submits form data via POST request to:
@@ -42,8 +50,8 @@ It is an Angular web application deployed on **Firebase Hosting**, with authenti
     ```ts
     interface FlightInfoPayload {
       airline: string;
-      arrivalDate: string;
-      arrivalTime: string;
+      arrivalDate: string;   // ISO string
+      arrivalTime: string;   // HH:mm
       flightNumber: string;
       numOfGuests: number;
       comments?: string;
@@ -51,9 +59,18 @@ It is an Angular web application deployed on **Firebase Hosting**, with authenti
     ```
 
 - **UI Feedback**
-  - Success alert when submission completes
+  - Success message when submission completes
   - Error alert if submission fails
   - Local JSON preview for debugging
+    
+ **🎨 UX & UI Enhancements**
+
+  - Material Design with Angular Material components
+  - ngx-mat-timepicker for consistent time handling (supports 12h & 24h formats)
+  - Responsive and accessible design
+  - Profile dropdown with initials/avatar + logout
+  - Loading spinner with blurred background while submitting
+  - Disabled submit button during loading
 
 ---
 
@@ -62,7 +79,7 @@ It is an Angular web application deployed on **Firebase Hosting**, with authenti
 - Firebase Hosting  
 - Firebase Authentication (Email/Password + Google Sign-In)  
 - AngularFire + Firebase SDK  
-- Angular HttpClient  
+- Angular HttpClient for API communication 
 
 ---
 
@@ -107,5 +124,13 @@ Production Build & Firebase Hosting:
     firebase login
     firebase init hosting
     firebase deploy --only hosting
+
+** ✨ Enhancements Beyond Requirements**
+
+- Route guards for navigation security
+- Server-side validation handling
+- Strongly typed reactive forms for maintainability
+- Time normalization for consistent storage
+- User experience improvements (loading states, clear errors, responsive UI)
 
 
