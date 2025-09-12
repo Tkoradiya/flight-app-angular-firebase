@@ -1,68 +1,109 @@
+<!-- Profile dropdown -->
 <div class="profile-container">
   <div class="profile-icon" (click)="toggleDropdown()">
-    {{ getUserInitials() }}
+    {{ userInitials }}
   </div>
   <div class="dropdown-menu" *ngIf="dropdownOpen">
     <p class="dropdown-user">
-      {{ auth.currentUser?.displayName || auth.currentUser?.email }}
+      {{ userDisplayName || userEmail }}
     </p>
     <hr />
-    <a (click)="onLogout()">Logout</a>
+    <a (click)="logout()">Logout</a>
   </div>
 </div>
 
+<!-- Flight form -->
 <div class="flight-form-page">
   <div class="flight-form-container">
     <div class="form-header">
       <h2>Flight Information</h2>
     </div>
 
-    <form #flightForm="ngForm" (ngSubmit)="onSubmit(flightForm)">
+    <form [formGroup]="form" (ngSubmit)="submit()">
       <!-- Airline -->
-      <label> Airline <span class="required">*</span> </label>
-      <input type="text" [(ngModel)]="airline" name="airline" required />
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Airline</mat-label>
+        <input matInput formControlName="airline" />
+        <mat-error *ngIf="form.get('airline')?.hasError('required')">
+          Airline is required
+        </mat-error>
+      </mat-form-field>
 
       <!-- Arrival Date -->
-      <label> Arrival Date <span class="required">*</span> </label>
-      <input
-        type="date"
-        [(ngModel)]="arrivalDate"
-        name="arrivalDate"
-        required
-        #arrivalDateCtrl="ngModel"
-        [class.is-invalid]="arrivalDateCtrl.invalid && arrivalDateCtrl.touched"
-        pattern="^\d{4}-\d{2}-\d{2}$"
-      />
-
-      <div class="error-text" *ngIf="arrivalDateCtrl.invalid && arrivalDateCtrl.touched">
-        Please enter a valid date (DD-MM-YYYY).
-      </div>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Arrival Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="arrivalDate" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="form.get('arrivalDate')?.hasError('required')">
+          Arrival date is required
+        </mat-error>
+      </mat-form-field>
 
       <!-- Arrival Time -->
-      <label>Arrival Time <span class="required">*</span></label>
-      <input type="time" matInput [(ngModel)]="arrivalTime" name="arrivalTime" required />
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Arrival Time</mat-label>
+        <input matInput [ngxMatTimepicker]="timePicker" formControlName="arrivalTime" readonly />
+        <!-- Proper suffix icon -->
+        <mat-icon matSuffix (click)="timePicker.open()" class="timepicker-icon">
+          access_time
+        </mat-icon>
+
+        <ngx-mat-timepicker
+          #timePicker
+          [format]="24"
+          (timeSet)="onTimeSelected($event)"
+        ></ngx-mat-timepicker>
+
+        <mat-error *ngIf="form.get('arrivalTime')?.hasError('required')">
+          Arrival time is required
+        </mat-error>
+        <mat-error *ngIf="form.get('arrivalTime')?.hasError('invalidTime')">
+          Invalid time format
+        </mat-error>
+      </mat-form-field>
 
       <!-- Flight Number -->
-      <label> Flight Number <span class="required">*</span> </label>
-      <input type="text" [(ngModel)]="flightNumber" name="flightNumber" required />
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Flight Number</mat-label>
+        <input matInput formControlName="flightNumber" />
+        <mat-error *ngIf="form.get('flightNumber')?.hasError('required')">
+          Flight number is required
+        </mat-error>
+      </mat-form-field>
 
       <!-- Number of Guests -->
-      <label>Number of Guests</label>
+      <!-- Number of Guests -->
       <div class="guest-input">
-        <button type="button" (click)="decreaseGuests()">−</button>
-        <input type="text" [value]="numOfGuests" readonly />
-        <button type="button" (click)="increaseGuests()">+</button>
+        <label>Number of Guests</label>
+        <div class="guest-controls">
+          <button type="button" (click)="decreaseGuests()">−</button>
+          <input formControlName="numOfGuests" readonly />
+          <button type="button" (click)="increaseGuests()">+</button>
+        </div>
+        <div class="error-text" *ngIf="form.get('numOfGuests')?.hasError('min')">
+          At least 1 guest is required
+        </div>
       </div>
 
-      <label>Comments (optional)</label>
-      <textarea [(ngModel)]="comments" name="comments"></textarea>
+      <!-- Comments -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Comments (optional)</mat-label>
+        <textarea matInput formControlName="comments"></textarea>
+      </mat-form-field>
 
-      <button type="submit">Submit</button>
+      <!-- Global API error -->
+      <div *ngIf="apiError" class="error-text">
+        {{ apiError }}
+      </div>
+
+      <!-- Global success -->
+      <div class="success-text"></div>
+
+      <!-- Submit -->
+      <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+        {{ loading ? 'Submitting...' : 'Submit' }}
+      </button>
     </form>
-
-    <div *ngIf="loading" class="loader-overlay">
-      <div class="spinner"></div>
-      <p>Saving flight details...</p>
-    </div>
   </div>
 </div>
